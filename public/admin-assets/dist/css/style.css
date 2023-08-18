@@ -1,0 +1,38 @@
+[class*=sidebar-dark-] {
+    background-color: #fff;
+}
+[class*=sidebar-dark-] .sidebar a {
+    color: #6e7075;
+}
+[class*=sidebar-dark-] .nav-sidebar>.nav-item.menu-open>.nav-link, [class*=sidebar-dark-] .nav-sidebar>.nav-item:hover>.nav-link, [class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-link:focus {
+    background-color: rgb(229 231 235);
+    color: #101010;
+}
+[class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link:focus, [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link:hover {
+    background-color: rgba(255,255,255,.1);
+    color: #0e0d0d;
+}
+[class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link {
+    color: #6e7075;
+}
+[class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active, [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active:focus, [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active:hover {
+    background-color: rgba(255,255,255,.9);
+    color: #6975e7;
+}
+[class*=sidebar-dark-] .nav-header {
+    background-color: inherit;
+    color: #2c2c2e;
+}
+[class*=sidebar-dark] .brand-link, [class*=sidebar-dark] .brand-link .pushmenu {
+    color: #2c2c2e;
+}
+[class*=sidebar-dark] .brand-link .pushmenu:hover, [class*=sidebar-dark] .brand-link:hover {
+    color: #6975e7;
+}
+[class*=sidebar-dark] .brand-link {
+    border-bottom: 1px solid #dfdede;
+}
+
+.card-primary.card-outline {
+    border-top: 3px solid #d1dae4;
+}

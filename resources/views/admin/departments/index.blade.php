@@ -41,7 +41,7 @@
                     <tr>
                         <td>{{ ++$i }}</td>
                         <td>{{ $department->name }}</td>
-                        <td><span class="badge badge-success" style="background: {{ $department->color }}"> {{ $department->color }} </span></td>
+                        <td><span class="badge badge-success" style="background: {{ $department->color }}"> &nbsp; &nbsp; </span></td>
                         <td>
                             @if($department->is_active==1)
                             <label class="badge badge-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Active</label>

@@ -23,7 +23,8 @@
                                     <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
                                 </h3>
                                 <p class="text-sm">Call me whenever you can...</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{ $i }} Hours Ago</p>
+                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{ $i }}
+                                    Hours Ago</p>
                             </div>
                         </div>
                     </a>
@@ -42,7 +43,7 @@
                 <div class="dropdown-divider"></div>
                 @for ($i = 1; $i <= 5; $i++)
                     <a href="#" class="dropdown-item">
-                        <i class="fas fa-envelope mr-2"></i> {{ $i+2 }} new messages
+                        <i class="fas fa-envelope mr-2"></i> {{ $i + 2 }} new messages
                         <span class="float-right text-muted text-sm">{{ $i }} mins</span>
                     </a>
                     <div class="dropdown-divider"></div>
@@ -58,36 +59,34 @@
                         <img class="profile-user-img img-fluid img-circle"
                             src="{{ asset('admin-assets/dist/img/user4-128x128.jpg') }}" alt="User profile picture"
                             style="border: 2px solid #adb5bd;margin: -7px 0px;padding: 1px;width: 40px;">
-                            {{ Auth::user()->name }} <i class="fas fa-caret-down mr-2"></i>
+                        {{ Auth::user()->name }} <i class="fas fa-caret-down mr-2"></i>
                     </div>
                 </div>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <div class="card card-primary card-outline">
-                    <div class="card-body box-profile">
-                        <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle"
-                                src="{{ asset('admin-assets/dist/img/user4-128x128.jpg') }}" alt="User profile picture">
-                        </div>
-                        <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
-                        <p class="text-muted text-center">Software Engineer</p><br>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-user mr-2"></i> Profile
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-lock mr-2"></i> Change Password
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-cog mr-2"></i> Settings
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-power-off mr-2"></i> Logout
-                        </a>
+                <div class="card-body box-profile">
+                    <div class="text-center">
+                        <img class="profile-user-img img-fluid img-circle"
+                            src="{{ asset('admin-assets/dist/img/user4-128x128.jpg') }}" alt="User profile picture">
                     </div>
+                    <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
+                    <p class="text-muted text-center">Software Engineer</p><br>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-user mr-2"></i> Profile
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-lock mr-2"></i> Change Password
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-cog mr-2"></i> Settings
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-power-off mr-2"></i> Logout
+                    </a>
                 </div>
             </div>
         </li>

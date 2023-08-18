@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="{{ asset('admin-assets/plugins/summernote/summernote-bs4.min.css') }}">
     <!-- dataTables -->
     <link rel="stylesheet" href="{{ asset('admin-assets/dist/css/dataTables.bootstrap4.min.css') }}">
+    <!-- Additional CSS -->
+    <link rel="stylesheet" href="{{ asset('admin-assets/dist/css/style.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
