@@ -37,19 +37,19 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('users.index') }}" class="nav-link {{ Route::current()->getName() == 'clients.index' ? 'active' : '' }}">
+                            <a href="{{ route('clients.index') }}" class="nav-link {{ Route::current()->getName() == 'clients.index' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i> <p>All Clients</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('users.create')}}" class="nav-link {{ Route::current()->getName() == 'clients.create' ? 'active' : '' }}">
+                            <a href="{{route('clients.create')}}" class="nav-link {{ Route::current()->getName() == 'clients.create' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i> <p>Add New Client</p>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item {{ Request::segment(2) == 'projects' ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ Request::segment(2) == 'clients' ? 'active' : '' }}">
+                    <a href="#" class="nav-link {{ Request::segment(2) == 'projects' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-folder-open"></i>
                         <p>Projects <i class="right fas fa-angle-left"></i></p>
                     </a>
