@@ -30,24 +30,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item {{ Request::segment(2) == 'clients' ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ Request::segment(2) == 'clients' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-user-secret"></i>
-                        <p>Clients <i class="right fas fa-angle-left"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('clients.index') }}" class="nav-link {{ Route::current()->getName() == 'clients.index' ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i> <p>All Clients</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('clients.create')}}" class="nav-link {{ Route::current()->getName() == 'clients.create' ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i> <p>Add New Client</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+               
                 <li class="nav-item {{ Request::segment(2) == 'projects' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'projects' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-folder-open"></i>
@@ -113,11 +96,18 @@
                                 <i class="far fa-circle nav-icon"></i> <p>All Users</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{route('users.create')}}" class="nav-link {{ Route::current()->getName() == 'users.create' ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i> <p>Add New User</p>
-                            </a>
-                        </li>
+                        @php
+                            $roles = App\Models\Role::where('name', '!=', 'Admin')->get();
+                        @endphp
+                        @foreach ($roles as $item)
+                            <li class="nav-item {{ Request::segment(4) == $item->id ? 'active' : '' }}">
+                                <a href="{{ url('admin/users/user-profile-by-role', $item->id) }}"
+                                    class="nav-link {{ Request::segment(4) == $item->id ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>{{ $item->name }}</p>
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
                 </li>
                 <li class="nav-item {{ Request::segment(2) == 'roles' ? 'menu-open' : '' }}">

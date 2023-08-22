@@ -34,6 +34,11 @@
     <link rel="stylesheet" href="{{ asset('admin-assets/dist/css/dataTables.bootstrap4.min.css') }}">
     <!-- Additional CSS -->
     <link rel="stylesheet" href="{{ asset('admin-assets/dist/css/style.css') }}">
+
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('admin-assets/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('admin-assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -112,6 +117,8 @@
     <!-- dataTables -->
     <script src="{{ asset('admin-assets/dist/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('admin-assets/dist/js/dataTables.bootstrap4.min.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('admin-assets/plugins/select2/js/select2.full.min.js') }}"></script>
 
     <script>
         new DataTable('#example');
@@ -120,7 +127,11 @@
         }, 3000);
 
         $(function() {
-            $('#summernote').summernote()
+            $('#summernote').summernote();
+        });
+
+        $(function() {
+            $('.select2').select2();
         });
     </script>
 

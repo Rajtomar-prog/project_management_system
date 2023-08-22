@@ -36,3 +36,11 @@
 .card-primary.card-outline {
     border-top: 3px solid #d1dae4;
 }
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: #d3d5d8 !important;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #007bff !important;
+    border: 1px solid #007bff !important;
+}

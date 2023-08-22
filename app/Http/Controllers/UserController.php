@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Department;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -18,11 +19,24 @@ class UserController extends Controller
         return view('admin.users.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
+
+    public function userProfileByRole(Request $request){
+
+        $data = User::whereHas(
+            'roles', function($q)use($request){
+                $q->where('id', $request->id);
+            }
+        )->paginate(10);
+
+        return view('admin.users.index',compact('data'))
+            ->with('i', ($request->input('page', 1) - 1) * 10);;
+    }
     
     public function create()
     {
         $roles = Role::pluck('name','name')->all();
-        return view('admin.users.create',compact('roles'));
+        $departments = Department::pluck('name','name')->all();
+        return view('admin.users.create',compact('roles','departments'));
     }
     
     public function store(Request $request)
@@ -53,9 +67,10 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
+        $departments = Department::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
     
-        return view('admin.users.edit',compact('user','roles','userRole'));
+        return view('admin.users.edit',compact('user','roles','userRole','departments'));
     }
     
     public function update(Request $request, $id)
