@@ -29,9 +29,11 @@
                         </tr>
                         <tr>
                             <th>Color</th>
-                            <td><span class="badge badge-success" style="background: {{ $department->color }}">
-                                    {{ $department->color }}
-                                </span></td>
+                            <td>
+                                <span class="badge badge-success" style="background: {{ $department->color }}">
+                                    &nbsp; &nbsp;
+                                </span>
+                            </td>
                         </tr>
                         <tr>
                             <th>Name</th>

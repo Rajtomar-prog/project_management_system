@@ -30,7 +30,8 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Roles</th>
-                            <th width="280px">Action</th>
+                            <th>Departments</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,6 +44,13 @@
                                     @if (!empty($user->getRoleNames()))
                                         @foreach ($user->getRoleNames() as $v)
                                             <label class="badge badge-success">{{ $v }}</label>
+                                        @endforeach
+                                    @endif
+                                </td>
+                                <td>
+                                    @if (!empty($user->departments))
+                                        @foreach ($user->departments as $department)
+                                            <label class="badge badge-primary">{{ $department->name }}</label>
                                         @endforeach
                                     @endif
                                 </td>

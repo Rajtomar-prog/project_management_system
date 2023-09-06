@@ -35,12 +35,13 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::pluck('name','name')->all();
-        $departments = Department::pluck('name','name')->all();
+        $departments = Department::pluck('name','id')->all();
         return view('admin.users.create',compact('roles','departments'));
     }
     
     public function store(Request $request)
     {
+        
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
@@ -53,6 +54,8 @@ class UserController extends Controller
     
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
+
+        $user->departments()->attach($request->departments);
     
         return redirect('admin/users')->with('success','User created successfully');
     }
@@ -67,10 +70,12 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
-        $departments = Department::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
-    
-        return view('admin.users.edit',compact('user','roles','userRole','departments'));
+
+        $departments = Department::pluck('name','id')->all();
+        $userDepartments = $user->departments;
+ 
+        return view('admin.users.edit',compact('user','roles','userRole','departments','userDepartments'));
     }
     
     public function update(Request $request, $id)
@@ -94,6 +99,8 @@ class UserController extends Controller
         DB::table('model_has_roles')->where('model_id',$id)->delete();
     
         $user->assignRole($request->input('roles'));
+
+        
     
         return redirect('admin/users')->with('success','User updated successfully');
     }

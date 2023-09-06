@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class User extends Authenticatable
 {
@@ -44,5 +46,9 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function departments(): MorphToMany
+    {
+        return $this->morphToMany(Department::class, 'departmentable');
+    }
 
 }
