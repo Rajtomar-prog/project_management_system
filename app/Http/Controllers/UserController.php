@@ -41,15 +41,18 @@ class UserController extends Controller
     
     public function store(Request $request)
     {
-        
+
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'roles' => 'required',
+            'departments' => 'required',
+            'phone_number' => 'required|numeric|digits:10'
         ]);
     
         $input = $request->all();
+        
         $input['password'] = Hash::make($input['password']);
     
         $user = User::create($input);
@@ -84,7 +87,9 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
-            'roles' => 'required'
+            'roles' => 'required',
+            'departments' => 'required',
+            'phone_number' => 'required|numeric|digits:10'
         ]);
     
         $input = $request->all();
@@ -100,7 +105,8 @@ class UserController extends Controller
     
         $user->assignRole($request->input('roles'));
 
-        
+        $user->departments()->detach();
+        $user->departments()->attach($request->departments);
     
         return redirect('admin/users')->with('success','User updated successfully');
     }

@@ -42,13 +42,7 @@
                         <td>{{ ++$i }}</td>
                         <td>{{ $department->name }}</td>
                         <td><span class="badge badge-success" style="background: {{ $department->color }}"> &nbsp; &nbsp; </span></td>
-                        <td>
-                            @if($department->is_active==1)
-                            <label class="badge badge-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Active</label>
-                            @else
-                            <label class="badge badge-danger"><i class="fa fa-ban" aria-hidden="true"></i> Inactive</label>
-                            @endif
-                        </td>
+                        <td>{{ displayStatus($department->is_active) }}</td>
                         <td>
                             <a href="{{ route('departments.show',$department->id) }}" title="View" class="btn btn-outline-info btn-sm">
                                 <i class="fas fa-eye"></i>

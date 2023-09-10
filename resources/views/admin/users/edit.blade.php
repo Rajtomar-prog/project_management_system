@@ -52,6 +52,12 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
+                <strong>Phone Number:</strong>
+                {!! Form::text('phone_number', null, array('placeholder' => 'Phone Number','class' => 'form-control')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
                 <strong>Department:</strong>
                 {!! Form::select('departments[]', $departments,$userDepartments, array('class' => 'select2 form-control','multiple')) !!}
             </div>
@@ -60,6 +66,12 @@
             <div class="form-group">
                 <strong>Role:</strong>
                 {!! Form::select('roles[]', $roles,$userRole, array('class' => 'select2 form-control','multiple')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Status:</strong>
+                {!! Form::select('is_active', array('1' => 'Active','0' => 'Inactive'),null, array('class' => 'form-control')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">

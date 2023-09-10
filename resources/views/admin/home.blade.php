@@ -135,6 +135,9 @@
         });
     </script>
 
+    @section('additionl_js')
+    @show
+
 </body>
 
 </html>

@@ -38,12 +38,12 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('users.index') }}" class="nav-link {{ Route::current()->getName() == 'projects.index' ? 'active' : '' }}">
+                            <a href="{{ route('projects.index') }}" class="nav-link {{ Route::current()->getName() == 'projects.index' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i> <p>All Projects</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('users.create')}}" class="nav-link {{ Route::current()->getName() == 'projects.create' ? 'active' : '' }}">
+                            <a href="{{route('projects.create')}}" class="nav-link {{ Route::current()->getName() == 'projects.create' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i> <p>Add New project</p>
                             </a>
                         </li>
