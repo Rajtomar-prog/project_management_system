@@ -2,7 +2,7 @@
 @section('page_title', 'Project Management')
 
 @section('main_headeing', 'Project')
-@section('sub_headeing', 'Add New Project')
+@section('sub_headeing', 'Edit Project')
 
 @section('content_section')
     <div class="card-header">
@@ -26,7 +26,7 @@
             </div>
         @endif
 
-        {!! Form::open(['route' => 'projects.store', 'method' => 'POST']) !!}
+        {!! Form::model($project, ['method' => 'PATCH','route' => ['projects.update', $project->id]]) !!}
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
@@ -37,7 +37,7 @@
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
                     <strong>Client:</strong>
-                    {!! Form::select('client_id', [null => 'Select Client'] + $clients, [], ['class' => 'form-control']) !!}
+                    {!! Form::select('client_id', [null => 'Select Client'] + $clients, $project->client_id, ['class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
@@ -46,7 +46,7 @@
                     {!! Form::select(
                         'departments[]',
                         $departments,
-                        [],
+                        $projectDepartments,
                         ['class' => 'select2 form-control', 'id' => 'departments', 'multiple'],
                     ) !!}
                 </div>
@@ -54,7 +54,7 @@
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
                     <strong>Assign User:</strong>
-                    {!! Form::select('users[]', [], [], ['class' => 'select2 form-control', 'id' => 'users', 'multiple']) !!}
+                    {!! Form::select('users[]', $users, $projectUsers, ['class' => 'select2 form-control', 'id' => 'users', 'multiple']) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">

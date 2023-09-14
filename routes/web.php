@@ -32,6 +32,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('admin/products', App\Http\Controllers\ProductController::class);
     Route::resource('admin/departments', App\Http\Controllers\DepartmentController::class);
     Route::resource('admin/projects', App\Http\Controllers\ProjectController::class);
+    Route::resource('admin/tasks', App\Http\Controllers\TaskController::class);
+    Route::get('admin/tasks/status', [App\Http\Controllers\TaskController::class,'status'])->name('status');
 
     Route::resource('admin/clients', App\Http\Controllers\ClientController::class);
     Route::get('admin/users/user-profile-by-role/{id}', [App\Http\Controllers\UserController::class, 'userProfileByRole'])->name('userProfileByRole');

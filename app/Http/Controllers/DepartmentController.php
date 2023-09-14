@@ -69,4 +69,5 @@ class DepartmentController extends Controller
 
         return redirect('admin/departments')->with('success', 'Department deleted successfully');
     }
+
 }

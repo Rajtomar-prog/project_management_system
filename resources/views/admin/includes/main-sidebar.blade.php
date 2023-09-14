@@ -56,13 +56,18 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('users.index') }}" class="nav-link {{ Route::current()->getName() == 'tasks.index' ? 'active' : '' }}">
+                            <a href="{{ route('tasks.index') }}" class="nav-link {{ Route::current()->getName() == 'tasks.index' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i> <p>All Tasks</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('users.create')}}" class="nav-link {{ Route::current()->getName() == 'tasks.create' ? 'active' : '' }}">
+                            <a href="{{route('tasks.create')}}" class="nav-link {{ Route::current()->getName() == 'tasks.create' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i> <p>Add New Task</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('tasks.status')}}" class="nav-link {{ Route::current()->getName() == 'tasks.status' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i> <p>Task Status</p>
                             </a>
                         </li>
                     </ul>
