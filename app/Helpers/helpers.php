@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Project;
 use App\Models\User;
 
 if (! function_exists('changeDateFormat')) {
@@ -17,6 +18,12 @@ if(!function_exists('displayStatus')){
 if(!function_exists('getUserNameById')){
     function getUserNameById($id){
         return User::find($id)->name;
+    }
+}
+
+if(!function_exists('getProjectNameById')){
+    function getProjectNameById($id){
+        return Project::find($id)->project_name;
     }
 }
 
@@ -61,5 +68,28 @@ if(!function_exists('currencyName')){
                 $currency = 'USD (&#36;)';
         }
         echo $currency;
+    }
+}
+
+
+if(!function_exists('taskPriority')){
+    function taskPriority($priority){
+        switch($priority) {
+            case(1):
+                $msg = 'Highest';
+                break;
+            case(2):
+                $msg = 'High';
+                break;
+            case(3):
+                $msg = 'Low';
+                break;
+            case(4):
+                $msg = 'Lowest';
+                break;
+            default:
+                $msg = 'N/A';
+        }
+        return $msg;
     }
 }

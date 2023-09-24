@@ -138,6 +138,9 @@
     @section('additionl_js')
     @show
 
+    @section('additional_css')
+    @show
+
 </body>
 
 </html>

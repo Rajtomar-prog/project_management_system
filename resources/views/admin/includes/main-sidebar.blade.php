@@ -65,26 +65,39 @@
                                 <i class="far fa-circle nav-icon"></i> <p>Add New Task</p>
                             </a>
                         </li>
+                    </ul>
+                </li>
+                <li class="nav-item {{ Request::segment(2) == 'status' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ Request::segment(2) == 'status' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-folder-open"></i>
+                        <p>Task Status <i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('tasks.status')}}" class="nav-link {{ Route::current()->getName() == 'tasks.status' ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i> <p>Task Status</p>
+                            <a href="{{ route('status.index') }}" class="nav-link {{ Route::current()->getName() == 'status.index' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i> <p>All Task Status</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('status.create')}}" class="nav-link {{ Route::current()->getName() == 'status.create' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i> <p>Add New Status</p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item {{ Request::segment(2) == 'tasks' ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ Request::segment(2) == 'tasks' ? 'active' : '' }}">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>Settings <i class="right fas fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('users.index') }}" class="nav-link {{ Route::current()->getName() == 'tasks.index' ? 'active' : '' }}">
+                            <a href="" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i> <p>All Tasks</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('users.create')}}" class="nav-link {{ Route::current()->getName() == 'tasks.create' ? 'active' : '' }}">
+                            <a href="" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i> <p>Add New Task</p>
                             </a>
                         </li>
