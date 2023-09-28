@@ -22,5 +22,10 @@ class Task extends Model
     {
         return $this->belongsTo(Status::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class)->orderBy('id', 'DESC');;
+    }
     
 }

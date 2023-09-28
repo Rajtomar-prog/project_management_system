@@ -36,8 +36,9 @@
                             {{-- <div class="col-sm-4">
                             {!! Form::select('users[]', [], [], ['class' => 'select2 form-control', 'id' => 'users', 'multiple']) !!}
                             </div> --}}
-                            <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-filter"
-                                    aria-hidden="true"></i> Filter</button>
+                            <button type="submit" class="btn btn-default btn-flat">
+                                <i class="fa fa-filter" aria-hidden="true"></i> 
+                            </button>
                             {!! Form::close() !!}
                         </div>
                     </div>
@@ -58,13 +59,13 @@
                             </div>
                             <div class="card-body">
                                 @if (!empty($status['tasks']))
-                                    @foreach ($status['tasks'] as $task)
+                                    @foreach ($status['tasks'] as $key => $task)
                                         @if ($task['task_name'])
                                             <div class="card card-light card-outline">
                                                 <div class="card-header">
                                                     <h5 class="card-title">{{ $task['task_name'] }}</h5>
                                                     <div class="card-tools">
-                                                        <a href="#" class="btn btn-tool btn-link">#2</a>
+                                                        <a href="#" class="btn btn-tool btn-link">#{{ $key+1 }}</a>
                                                         <button type="button" class="btn btn-tool get-task-detail"
                                                             data-toggle="modal" data-target="#modal-lg"
                                                             data-task_id="{{ $task['task_id'] }}">
@@ -93,7 +94,7 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Task Detail</h5>
+                    <h5 class="modal-title"><i class="fa fa-tasks" aria-hidden="true"></i> Task Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -207,10 +208,40 @@
                 success: function(response) {
 
                     if (response) {
+                        $('.model_data').html('');
                         $('.model_data').html(response);
                         //$('#task_description').html(response.task.description);
                     }
                     //console.log(response);
+                }
+            });
+        });
+
+        var path_comment = "{{ route('add_comment') }}";
+        
+        $('body').on('click', '#add_comment', function (){
+            let task_id = $("input[name=task_id]").val();
+            let comment = $("textarea[name=comment]").val();
+            $.ajax({
+                type: "GET",
+                headers: {'X-CSRF-Token': '{{ csrf_token() }}',},
+                data: {task_id: task_id, comment:comment},
+                url: path_comment,
+                success: function(response) {
+
+                    if (response.status) {
+                        $('#comment_msg').html('');
+                        $('.model_data').html(response);
+                        //$('#task_description').html(response.task.description);
+                    }
+                    
+                    console.log(response);
+                },
+                error: function(reject) {
+                    var response = $.parseJSON(reject.responseText);
+                    $.each(response.errors, function(key, val) {
+                        $("#" + key + "_error").text(val[0]);
+                    });
                 }
             });
         });

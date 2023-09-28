@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('admin/tasks/get_assigned_users', [App\Http\Controllers\TaskController::class,'get_assigned_users'])->name('get_assigned_users');
     Route::get('admin/tasks/get_task_detail', [App\Http\Controllers\TaskController::class,'get_task_detail'])->name('get_task_detail');
+    Route::get('admin/tasks/add_comment', [App\Http\Controllers\TaskController::class,'add_comment'])->name('add_comment');
     Route::resource('admin/tasks', App\Http\Controllers\TaskController::class);
 
     Route::get('admin/profile', [App\Http\Controllers\ProfileController::class,'index'])->name('profile');

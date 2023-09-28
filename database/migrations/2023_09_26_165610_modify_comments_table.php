@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            $table->unsignedBigInteger('status_id')->after('description');
-            $table->foreign('status_id')->references('id')->on('statuses');
+        Schema::table('comments', function (Blueprint $table) {
+            $table->unsignedBigInteger('commented_by')->after('task_id');
+            $table->foreign('commented_by')->references('id')->on('users');
         });
     }
 

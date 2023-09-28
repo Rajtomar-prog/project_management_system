@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\Status;
 use App\Models\Project;
+use App\Models\Comment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
 
@@ -51,13 +52,23 @@ class TaskController extends Controller
     public function get_task_detail(Request $request)
     {
     
-        $response = collect([]);
+        // $response = collect([]);
 
         $task = Task::find($request->task_id);
         $users = $task->users;
         $status = $task->status;
         $status_name = $status->name;
 
+        // $user = auth()->user();
+        // $user_id = auth()->user()->id; 
+       
+        // $comment = new Comment;
+        // $comment->comment = "My Third Comment";
+        // $comment->commented_by = $user_id;
+        // return $task = $task->comments()->save($comment);
+
+        $comments = $task->comments;
+        
         $priority = taskPriority($task->priority);
 
         $created_by = getUserNameById($task->created_by);
@@ -89,11 +100,27 @@ class TaskController extends Controller
                                         <i class="fa fa-comments" aria-hidden="true"></i>
                                         Comments
                                     </h5>
-                                    <span class="label label-info badge badge-info">78</span>
+                                    <span class="label label-info badge badge-info">'.count($comments).'</span>
                                 </div>
                                 <div class="panel-body">
+                                    <br>
+                                    <small id="comment_error" class="form-text text-danger"></small>
+                                    <small id="task_id_error" class="form-text text-danger"></small>
+                                    <input type="hidden" name="task_id" class="form-control task_id" value="'.$task->id.'">
+                                    <div class="form-group">
+                                        <strong>Add a comment:</strong>
+                                        <textarea name="comment" placeholder="Enter description" id="summernote" class="form-control comment"></textarea>
+                                    </div>
+                                    <button type="button" id="add_comment" class="btn btn-outline-primary btn-block btn-sm">Save</button>
+                                    <br>
+                                    <script>
+                                        $(function () {
+                                            $("#summernote").summernote();
+                                        });
+                                    </script>
+
                                     <ul class="list-group">';
-                                        for($i=1; $i<=5; $i++){
+                                        foreach($comments as $comment){
                                         echo '<li class="list-group-item">
                                             <div class="row">
                                                 <div class="col-sm-1">
@@ -101,10 +128,10 @@ class TaskController extends Controller
                                                 </div>
                                                 <div class="col-sm-11">
                                                     <div class="mic-info">
-                                                        <a href="#">Bhaumik Patel</a> <small>2 Aug 2023</small>
+                                                        <a href="#">'.getUserNameById($comment->commented_by).'</a> <small>'.changeDateFormat('M d, Y h:i A',$comment->created_at).'</small>
                                                     </div>
                                                     <div class="comment-text">
-                                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                                        '.$comment->comment.'
                                                     </div>
                                                     <div class="action">
                                                         <button type="button" class="btn badge badge-info" title="Edit">
@@ -120,11 +147,6 @@ class TaskController extends Controller
                                         }
                                     echo '
                                     </ul>
-                                    <div class="form-group">
-                                        <strong>Add a comment:</strong>
-                                        <textarea name="description" placeholder="Enter description" id="summernote" class="form-control"></textarea>
-                                    </div>
-                                    <button type="button" class="btn btn-primary btn-flat">Save Changes</button>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +157,7 @@ class TaskController extends Controller
                 <div class="card-body" style="padding: 0px;">
                     <div class="card card-light card-outline">
                         <div class="card-header">
-                            <h5 class="card-title">Assignee</h5>
+                            <h5 class="card-title"><i class="fa fa-users"></i> Assignee</h5>
                         </div>
                         <div class="card-body" style="padding: 10px;">
                             <ul class="list-group assignee">';
@@ -165,7 +187,7 @@ class TaskController extends Controller
                 <div class="card-body" style="padding: 0px;">
                     <div class="card card-light card-outline">
                         <div class="card-header">
-                            <h5 class="card-title">Settings</h5>
+                            <h5 class="card-title"><i class="fa fa-cogs"></i> Settings</h5>
                         </div>
                         <div class="card-body settings-box">
                             <div class="jumbotron bg-default">
@@ -183,7 +205,7 @@ class TaskController extends Controller
                 <div class="card-body" style="padding: 0px;">
                     <div class="card card-light card-outline">
                         <div class="card-header">
-                            <h5 class="card-title">Information</h5>
+                            <h5 class="card-title"><i class="fa fa-info-circle"></i> Information</h5>
                         </div>
                         <div class="card-body" style="padding: 10px;">
                             <div class="table-responsive">
@@ -213,6 +235,39 @@ class TaskController extends Controller
         ';
 
         //return response()->json(['status' => $status, 'data' => $response]);
+        die();
+    }
+
+    public function add_comment(Request $request){
+
+        $this->validate($request, [
+            'task_id' => 'required',
+            'comment' => 'required',
+        ]);
+
+        $task = Task::find($request->task_id);
+       
+        $comment = new Comment;
+        $comment->comment = $request->comment;
+        $comment->commented_by = auth()->user()->id; 
+        $is_saved = $task->comments()->save($comment);
+
+        $response = collect([]);
+
+        $comments = $task->comments;
+        if($is_saved){
+            $response->push([
+                'comments' => $comments
+            ]); 
+            $status = true;
+        }else{
+            $response->push([
+                'comments' => $comments
+            ]);
+            $status = true;
+        }
+
+        return response()->json(['status' => $status,'data' => $response]);
         die();
     }
 
