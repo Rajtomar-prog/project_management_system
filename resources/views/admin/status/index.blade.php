@@ -9,7 +9,7 @@
 <div class="card-header">
     <h3 class="card-title">@yield('sub_headeing')</h3>
     <div class="float-right">
-        @can('role-create')
+        @can('status-create')
         <a class="btn btn-outline-primary btn-block btn-sm" href="{{ route('status.create') }}">
             <i class="fa fa-plus"></i> New Task Status
         </a>
@@ -46,9 +46,11 @@
                         <td><span class="badge badge-success" style="background: {{ $status->color }}"> &nbsp; &nbsp; </span></td>
                         <td>{{ displayStatus($status->is_active) }}</td>
                         <td>
+                            @can('status-edit')
                             <a href="{{ route('status.edit',$status->id) }}" title="Edit" class="btn btn-outline-primary btn-sm">
                                 <i class="fas fa-edit"></i>
                             </a>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach

@@ -37,10 +37,15 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('admin/tasks/get_assigned_users', [App\Http\Controllers\TaskController::class,'get_assigned_users'])->name('get_assigned_users');
     Route::get('admin/tasks/get_task_detail', [App\Http\Controllers\TaskController::class,'get_task_detail'])->name('get_task_detail');
     Route::get('admin/tasks/add_comment', [App\Http\Controllers\TaskController::class,'add_comment'])->name('add_comment');
+    Route::get('admin/tasks/destroy_comment', [App\Http\Controllers\TaskController::class,'destroy_comment'])->name('destroy_comment');
+    Route::get('admin/tasks/change_task_status', [App\Http\Controllers\TaskController::class,'change_task_status'])->name('change_task_status');
+    Route::get('admin/tasks/update_assignee', [App\Http\Controllers\TaskController::class,'update_assignee'])->name('update_assignee');
     Route::resource('admin/tasks', App\Http\Controllers\TaskController::class);
 
-    Route::get('admin/profile', [App\Http\Controllers\ProfileController::class,'index'])->name('profile');
+    Route::resource('admin/profile', App\Http\Controllers\ProfileController::class);
     
     Route::resource('admin/clients', App\Http\Controllers\ClientController::class);
     Route::get('admin/users/user-profile-by-role/{id}', [App\Http\Controllers\UserController::class, 'userProfileByRole'])->name('userProfileByRole');
+
+    Route::resource('admin/permissions', App\Http\Controllers\PermissionController::class);
 });

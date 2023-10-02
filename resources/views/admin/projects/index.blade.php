@@ -9,7 +9,7 @@
     <div class="card-header">
         <h3 class="card-title">@yield('sub_headeing')</h3>
         <div class="float-right">
-            @can('department-create')
+            @can('project-create')
                 <a class="btn btn-outline-primary btn-block btn-sm" href="{{ route('projects.create') }}">
                     <i class="fa fa-plus"></i> New Project
                 </a>
@@ -54,16 +54,19 @@
                                 </td>
                                 <td>{{ projectStatus($project->status) }}</td>
                                 <td>
+                                    @can('project-list')
                                     <a href="{{ route('projects.show', $project->id) }}" title="View"
                                         class="btn btn-outline-info btn-sm">
                                         <i class="fas fa-eye"></i>
                                     </a>
-
+                                    @endcan
+                                    @can('project-edit')
                                     <a href="{{ route('projects.edit', $project->id) }}" title="Edit"
                                         class="btn btn-outline-primary btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>
-
+                                    @endcan
+                                    @can('project-delete')
                                     {!! Form::open([
                                         'method' => 'DELETE',
                                         'route' => ['projects.destroy', $project->id],
@@ -74,7 +77,7 @@
                                         'type' => 'submit',
                                     ]) !!}
                                     {!! Form::close() !!}
-
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

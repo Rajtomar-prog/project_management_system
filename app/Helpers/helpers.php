@@ -91,5 +91,24 @@ if(!function_exists('taskPriority')){
                 $msg = 'N/A';
         }
         return $msg;
+    }   
+}
+
+if(!function_exists('get_profile_pic')){
+    function get_profile_pic($user_id=null){
+
+        if(!empty($user_id)){
+            $user = User::find($user_id);
+        }else{
+            $user = auth()->user();
+        }
+          
+        if (!empty($user->profile_pic)){
+            $profile_pic = asset('admin-assets/dist/img/').'/'.$user->profile_pic;
+        }else{
+            $profile_pic = asset('admin-assets/dist/img/avatar5.png');
+        }
+        return $profile_pic;
     }
 }
+

@@ -24,54 +24,60 @@
     </div>
     @endif
 
-    {!! Form::open(array('route' => 'users.store','method'=>'POST')) !!}
+    {!! Form::open(array('route' => 'users.store','method'=>'POST','files' => true)) !!}
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Name:</strong>
+                <strong>Name<span class="text-danger">*</span></strong>
                 {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Email:</strong>
+                <strong>Email<span class="text-danger">*</span></strong>
                 {!! Form::text('email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Password:</strong>
+                <strong>Password<span class="text-danger">*</span></strong>
                 {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control')) !!}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Confirm Password:</strong>
+                <strong>Confirm Password<span class="text-danger">*</span></strong>
                 {!! Form::password('confirm-password', array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Phone Number:</strong>
+                <strong>Phone Number<span class="text-danger">*</span></strong>
                 {!! Form::text('phone_number', null, array('placeholder' => 'Phone Number','class' => 'form-control')) !!}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Department:</strong>
+                <strong>Department</strong>
                 {!! Form::select('departments[]', $departments,[], array('class' => 'select2 form-control','multiple')) !!}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Role:</strong>
+                <strong>Role<span class="text-danger">*</span></strong>
                 {!! Form::select('roles[]', $roles,[], array('class' => 'select2 form-control','multiple')) !!}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Status:</strong>
+                <strong>Status<span class="text-danger">*</span></strong>
                 {!! Form::select('is_active', array('1' => 'Active','0' => 'Inactive'),null, array('class' => 'form-control')) !!}
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <div class="form-group">
+                <label class="col-form-label">Profile Picture<span class="text-danger">*</span></label>
+                {!! Form::file('profile_pic', null, ['placeholder' => 'Choose Profile Pic', 'class' => 'form-control']) !!}  
             </div>
         </div>
 

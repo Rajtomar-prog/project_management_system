@@ -2,7 +2,7 @@
 @section('page_title', 'Task Management')
 
 @section('main_headeing', 'Task')
-@section('sub_headeing', 'Add New Task')
+@section('sub_headeing', 'Edit Task')
 
 @section('content_section')
     <div class="card-header">
@@ -26,7 +26,7 @@
             </div>
         @endif
 
-        {!! Form::open(['route' => 'tasks.store', 'method' => 'POST']) !!}
+        {!! Form::model($task, ['method' => 'PATCH', 'route' => ['tasks.update', $task->id], 'files' => true]) !!}
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
@@ -37,31 +37,41 @@
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
                     <strong>Priority<span class="text-danger">*</span></strong>
-                    {!! Form::select('priority', $priority, [], ['class' => 'form-control']) !!}
+                    {!! Form::select('priority', $priority, $task->priority, ['class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
                     <strong>Project<span class="text-danger">*</span></strong>
-                    {!! Form::select('project_id', [null => 'Select Project'] + $projects, [], ['class' => 'form-control project']) !!}
+                    {!! Form::select('project_id', [null => 'Select Project'] + $projects, $task->project_id, [
+                        'class' => 'form-control project',
+                        'onchange' => 'get_projects_users()',
+                    ]) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
                     <strong>Assign To<span class="text-danger">*</span></strong>
-                    {!! Form::select('users[]', [], [], ['class' => 'select2 form-control', 'id' => 'users', 'multiple']) !!}
+                    {!! Form::select('users[]', $projectUsers, $taskUsers, [
+                        'class' => 'select2 form-control',
+                        'id' => 'users',
+                        'multiple',
+                    ]) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
                     <strong>Due Date<span class="text-danger">*</span></strong>
-                    {!! Form::date('due_date', null, ['placeholder' => 'Enter due date', 'class' => 'form-control']) !!}
+                    {!! Form::date('due_date', changeDateFormat('Y-m-d', $task->due_date), [
+                        'placeholder' => 'Enter due date',
+                        'class' => 'form-control',
+                    ]) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
                     <strong>Task Status<span class="text-danger">*</span></strong>
-                    {!! Form::select('status_id', $statuses, [], array('class' => 'form-control')) !!}
+                    {!! Form::select('status_id', $statuses, $task->status_id, ['class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">

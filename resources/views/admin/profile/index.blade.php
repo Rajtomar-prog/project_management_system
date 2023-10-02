@@ -4,6 +4,15 @@
 @section('main_headeing', 'My Profile')
 @section('sub_headeing', 'My Profile')
 
+@section('additional_css')
+    <style>
+        li.list-group-item.text-center label {
+            width: 100%;
+            padding: 10px;
+        }
+    </style>
+@endsection
+
 @section('content_section')
 
     <div class="card-body">
@@ -14,6 +23,17 @@
                         <p>{{ $message }}</p>
                     </div>
                 @endif
+
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <strong>Whoops!</strong> Something went wrong.<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             </div>
         </div>
         <div class="row">
@@ -22,8 +42,7 @@
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle"
-                                src="{{ asset('admin-assets/dist/img/user4-128x128.jpg') }}" alt="User profile picture">
+                            <img class="profile-user-img img-fluid img-circle" src="{{ get_profile_pic() }}" alt="User profile picture">
                         </div>
 
                         <h3 class="profile-username text-center">{{ $user->name }}</h3>
@@ -142,35 +161,38 @@
                             </div>
                             <div class="tab-pane active" id="settings">
 
-                                {!! Form::model($user, [
-                                    'method' => 'PATCH',
-                                    'class' => 'form-horizontal',
-                                    'route' => ['statuses.update', $user->id],
-                                ]) !!}
+                                {!! Form::model($user, ['method' => 'PATCH', 'route' => ['profile.update', $user->id], 'files' => true]) !!}
 
-                                <div class="form-group row">
-                                    <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                                    <div class="col-sm-10">
-                                        {!! Form::text('name', null, ['placeholder' => 'Name', 'class' => 'form-control']) !!}
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Name<span class="text-danger">*</span></label>
+                                            {!! Form::text('name', null, ['placeholder' => 'Name', 'class' => 'form-control']) !!}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Email<span class="text-danger">*</span></label>
+                                            {!! Form::email('email', null, ['placeholder' => 'Enter email', 'class' => 'form-control']) !!}
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                                    <div class="col-sm-10">
-                                        {!! Form::email('email', null, ['placeholder' => 'Enter email', 'class' => 'form-control']) !!}
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Phone Number<span
+                                                    class="text-danger">*</span></label>
+                                            {!! Form::text('phone_number', null, ['placeholder' => 'Enter phone number', 'class' => 'form-control']) !!}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Profile Picture<span class="text-danger">*</span></label>
+                                            {!! Form::file('profile_pic', null, ['placeholder' => 'Choose Profile Pic', 'class' => 'form-control']) !!}  
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="inputName2" class="col-sm-2 col-form-label">Phone Number</label>
-                                    <div class="col-sm-10">
-                                        {!! Form::text('phone_number', null, ['placeholder' => 'Enter phone number', 'class' => 'form-control']) !!}
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="offset-sm-2 col-sm-10">
-                                        <button type="submit" class="btn btn-outline-primary btn-sm">Submit</button>
-                                    </div>
-                                </div>
+                                <button type="submit" class="btn btn-outline-primary btn-sm">Submit</button>
                                 {!! Form::close() !!}
                             </div>
                         </div>
@@ -180,13 +202,4 @@
         </div>
     </div>
 
-@endsection
-
-@section('additional_css')
-    <style>
-        li.list-group-item.text-center label {
-            width: 100%;
-            padding: 10px;
-        }
-    </style>
 @endsection

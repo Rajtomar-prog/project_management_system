@@ -12,6 +12,14 @@ use Illuminate\Support\Arr;
 
 class TaskController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:task-list|task-create|task-edit|task-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:task-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:task-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:task-delete', ['only' => ['destroy']]); 
+    }
+
     public function index()
     {
 
@@ -36,7 +44,9 @@ class TaskController extends Controller
                     $statusData[$key]['tasks'][] = [
                         'task_id' => $task->id,
                         'task_name' => $task->title,
-                        'description' => $task->description
+                        'description' => $task->description,
+                        'project_id' => $task->project_id,
+                        'created_at' => $task->created_at
                     ];
                 }
             }else{
@@ -51,36 +61,28 @@ class TaskController extends Controller
 
     public function get_task_detail(Request $request)
     {
-    
-        // $response = collect([]);
 
         $task = Task::find($request->task_id);
         $users = $task->users;
+
+        $userIds = [];
+        foreach($users as $user){
+            $userIds[] = $user->id;
+        }
+
+        $project = Project::find($request->project_id);
+        $project_users = $project->users;
+
         $status = $task->status;
         $status_name = $status->name;
-
-        // $user = auth()->user();
-        // $user_id = auth()->user()->id; 
-       
-        // $comment = new Comment;
-        // $comment->comment = "My Third Comment";
-        // $comment->commented_by = $user_id;
-        // return $task = $task->comments()->save($comment);
+        $status_id = $status->id;
+        $statuses = Status::orderBy('order', 'ASC')->get();
 
         $comments = $task->comments;
         
         $priority = taskPriority($task->priority);
-
         $created_by = getUserNameById($task->created_by);
         
-        //$status = false;
-        // if($task){
-        //     $response->push([
-        //         'task' => $task
-        //     ]); 
-        //     $status = true;
-        // }
-
         echo '
 
         <div class="row">
@@ -124,7 +126,7 @@ class TaskController extends Controller
                                         echo '<li class="list-group-item">
                                             <div class="row">
                                                 <div class="col-sm-1">
-                                                    <img src="http://127.0.0.1:8000/admin-assets/dist/img/user4-128x128.jpg" class="img-circle img-responsive" width="100%" alt="" />
+                                                    <img src="'.get_profile_pic($comment->commented_by).'" class="img-circle img-responsive" width="100%" alt="" />
                                                 </div>
                                                 <div class="col-sm-11">
                                                     <div class="mic-info">
@@ -137,7 +139,7 @@ class TaskController extends Controller
                                                         <button type="button" class="btn badge badge-info" title="Edit">
                                                             <i class="fa fa-edit" aria-hidden="true"></i>
                                                         </button>
-                                                        <button type="button" class="btn btn badge badge-danger" title="Delete">
+                                                        <button type="button" data-id="'.$comment->id.'" data-task_id="'.$task->id.'" class="btn btn badge badge-danger delete_comment" title="Delete">
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                         </button>
                                                     </div>
@@ -159,28 +161,34 @@ class TaskController extends Controller
                         <div class="card-header">
                             <h5 class="card-title"><i class="fa fa-users"></i> Assignee</h5>
                         </div>
-                        <div class="card-body" style="padding: 10px;">
-                            <ul class="list-group assignee">';
-
-                                foreach($users as $user){
-
-                                echo '<li class="list-group-item">
-                                    <div class="row">
-                                        <div class="col-sm-2">
-                                            <img src="http://127.0.0.1:8000/admin-assets/dist/img/user4-128x128.jpg" class="img-circle img-responsive" width="100%" alt="" />
-                                        </div>
-                                        <div class="col-sm-10">
-                                            <div class="mic-info">
-                                                '.$user["name"].'
+                        <div class="card-body">
+                            <div class="assignee-section">
+                                <ul class="list-group assignee">';
+                                    foreach($users as $user){
+                                        echo '<li class="list-group-item">
+                                            <div class="user-dp">
+                                                <img src="'.get_profile_pic($user->id).'" class="img-circle img-responsive" width="100%" alt="'.$user->name.'" title="'.$user->name.'" />
                                             </div>
-                                        </div>
-                                    </div>
-                                </li>';
-
-                                }
-
-                            echo '
-                            </ul>
+                                        </li>';
+                                    }
+                                    echo '
+                                </ul>
+                                <button class="btn assign_task_user"><i class="fa fa-plus"></i></button>
+                                
+                            </div>
+                            <div class="assign_task_users">
+                                <select name="users[]" class="select2" multiple="multiple" id="update_assignee" data-task_id="'.$task->id.'" data-placeholder="Select users" style="width: 100%;">';
+                                    foreach($project_users as $users){
+                                        $sel = '';
+                                        if(in_array($users->id,$userIds)){ $sel = 'selected'; } 
+                                        echo '<option value="'.$users->id.'" '.$sel.'>'.$users->name.'</option>';
+                                    }
+                                echo '
+                                </select>
+                            </div>
+                            <script>
+                                $(".select2").select2()
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -194,7 +202,18 @@ class TaskController extends Controller
                                 <b><i class="fa fa-calendar-check" aria-hidden="true"></i> Due Date:</b> '.changeDateFormat('M d, Y',$task->due_date).'
                             </div>
                             <div class="jumbotron bg-default">
-                                <b><i class="fa fa-flag" aria-hidden="true"></i> Status:</b> '.$status_name.'
+                                <div class="display-status">
+                                    <b><i class="fa fa-flag" aria-hidden="true"></i> Status:</b> '.$status_name.'
+                                </div>
+                                <div class="status-section">
+                                    <select name="statuses" class="form-control change_task_status" data-task_id="'.$task->id.'">';
+                                        foreach($statuses as $status){
+                                            $sel='';
+                                            if($status->id==$status_id){ $sel = 'selected';}
+                                            echo '<option value="'.$status->id.'" '.$sel.'>'.$status->name.'</option>';
+                                        } echo '
+                                    </select>
+                                </div>
                             </div>
                             <div class="jumbotron bg-default">
                                 <b><i class="fa fa-bell" aria-hidden="true"></i> Priority:</b> '.$priority.'
@@ -234,7 +253,6 @@ class TaskController extends Controller
         
         ';
 
-        //return response()->json(['status' => $status, 'data' => $response]);
         die();
     }
 
@@ -268,6 +286,49 @@ class TaskController extends Controller
         }
 
         return response()->json(['status' => $status,'data' => $response]);
+        die();
+    }
+
+    public function destroy_comment(Request $request){
+   
+        $isDeleted = Comment::find($request->id)->delete($request->id);
+        if($isDeleted){
+            $status = true;
+            return response()->json(['status' => $status,'msg' => 'Comment deleted successfully!']);
+        }else{
+            $status = false;
+            return response()->json(['status' => $status,'msg' => 'OOps! Something went wrong.']);
+        }
+        die();
+    }
+
+    public function change_task_status(Request $request){
+        $task = Task::find($request->task_id);
+        $task->status_id = $request->id;
+        $isSave = $task->save();
+        if($isSave){
+            $status = true;
+            return response()->json(['status' => $status,'msg' => 'Task Status updated successfully!']);
+        }else{
+            $status = false;
+            return response()->json(['status' => $status,'msg' => 'OOps! Something went wrong.']);
+        }
+        die();
+    }
+
+    public function update_assignee(Request $request){
+
+        $this->validate($request, [
+            'task_id' => 'required',
+            'userIds' => 'required',
+        ]);
+
+        $task = Task::find($request->task_id);
+
+        $task->users()->detach();
+        $task->users()->attach($request->userIds);
+
+        return response()->json(['status' => true,'msg' => 'Assignee updated successfully!']);
         die();
     }
 
@@ -317,7 +378,9 @@ class TaskController extends Controller
         $task = Task::create($input);
         $task->users()->attach($request->users);
 
-        return redirect('admin/tasks')->with('success', 'Project created successfully');
+        $redirect_url = 'admin/tasks?project_id='.$request->project_id;
+
+        return redirect($redirect_url)->with('success', 'Task created successfully');
     }
 
     public function show(string $id)
@@ -325,18 +388,51 @@ class TaskController extends Controller
         return 'show';
     }
 
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $task = Task::find($id);
+        $taskUsers = $task->users;
+
+        $project = Project::find($task->project_id);
+        $projectUsers = $project->users->pluck('name','id');
+       
+        $projects = Project::all()->pluck('project_name', 'id')->toArray();
+        $priority = array('' => 'Select Priority', 1 => 'Highest', 2 => 'High', 3 => 'Low', 4 => 'Lowest');
+        $statuses = Status::all()->sortBy('order')->pluck('name', 'id');
+        return view('admin.tasks.edit', compact('task','projectUsers','taskUsers','priority', 'projects', 'statuses'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+
+        $this->validate($request, [
+            'title' => 'required',
+            'priority' => 'required',
+            'project_id' => 'required',
+            'users' => 'required',
+            'due_date' => 'required',
+            'status_id' => 'required',
+            'description' => 'required',
+            'created_by' => 'required'
+        ]);
+
+        $input = $request->all();
+        $input = Arr::except($input, array('users'));
+
+        $task = Task::find($id);
+        $task->update($input);
+
+        $task->users()->detach();
+        $task->users()->attach($request->users);
+
+        $redirect_url = 'admin/tasks?project_id='.$request->project_id;
+
+        return redirect($redirect_url)->with('success', 'Task updated successfully');
     }
 
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        Task::find($id)->delete();
+        return back()->with('success','Task deleted successfully!');
     }
 }

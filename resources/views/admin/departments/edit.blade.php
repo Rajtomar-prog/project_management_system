@@ -32,25 +32,25 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Name:</strong>
+                        <strong>Name<span class="text-danger">*</span></strong>
                         <input type="text" name="name" value="{{ $department->name }}" class="form-control" placeholder="Name">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Description:</strong>
+                        <strong>Description<span class="text-danger">*</span></strong>
                         <textarea id="summernote" class="form-control" name="description" placeholder="Enter description">{{ $department->description }}</textarea>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Color:</strong>
+                        <strong>Color<span class="text-danger">*</span></strong>
                         <input type="color" value="{{ $department->color }}" name="color" class="form-control">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Status:</strong>
+                        <strong>Status<span class="text-danger">*</span></strong>
                         <select name="is_active" class="form-control">
                             <option value="1" @if($department->is_active==1) selected @endif>Active</option>
                             <option value="0" @if($department->is_active==0) selected @endif>Inactive</option>

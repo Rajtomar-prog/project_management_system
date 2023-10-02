@@ -8,10 +8,12 @@
 
     <div class="card-header">
         <h3 class="card-title">@yield('sub_headeing')</h3>
+        @can('user-create')
         <div class="float-right">
             <a class="btn btn-outline-primary btn-block btn-sm" href="{{ route('users.create') }}"><i class="fa fa-plus"></i>
                 Create New User </a>
         </div>
+        @endcan
     </div>
     <div class="card-body">
         <div class="row">
@@ -31,6 +33,7 @@
                             <th>Email</th>
                             <th>Roles</th>
                             <th>Departments</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -38,7 +41,7 @@
                         @foreach ($data as $key => $user)
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ $user->name }}</td>
+                                <td><img src="{{ get_profile_pic($user->id) }}" width="30px" class="img-circle"> {{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     @if (!empty($user->getRoleNames()))
@@ -54,21 +57,28 @@
                                         @endforeach
                                     @endif
                                 </td>
+                                <td>{{ displayStatus($user->is_active) }}</td>
                                 <td>
+                                    @can('user-list')
                                     <a href="{{ route('users.show', $user->id) }}" title="View"
                                         class="btn btn-outline-info btn-sm">
                                         <i class="fas fa-eye"></i>
                                     </a>
+                                    @endcan
+                                    @can('user-edit')
                                     <a href="{{ route('users.edit', $user->id) }}" title="Edit"
                                         class="btn btn-outline-primary btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>
+                                    @endcan
+                                    @can('user-delete')
                                     {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $user->id], 'style' => 'display:inline']) !!}
                                     {!! Form::button('<i class="fa fa-trash" aria-hidden="true"></i>', [
                                         'class' => 'btn btn-outline-danger btn-sm',
                                         'type' => 'submit',
                                     ]) !!}
                                     {!! Form::close() !!}
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

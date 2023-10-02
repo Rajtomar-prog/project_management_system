@@ -44,3 +44,16 @@
     background-color: #007bff !important;
     border: 1px solid #007bff !important;
 }
+
+input[type="file"] {
+    border-radius: 4px;
+    padding: 3px;
+    width: 100%;
+    border: 1px solid #c0c2c4;
+}
+
+.img-circle {
+    border: 1px solid #caccce;
+    padding: 1px;
+}
+

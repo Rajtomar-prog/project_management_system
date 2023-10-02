@@ -57,7 +57,7 @@
                 <div class="box-profile">
                     <div class="text-center">
                         <img class="profile-user-img img-fluid img-circle"
-                            src="{{ asset('admin-assets/dist/img/user4-128x128.jpg') }}" alt="User profile picture"
+                            src="{{ get_profile_pic() }}" alt="{{ Auth::user()->name }}"
                             style="border: 2px solid #adb5bd;margin: -7px 0px;padding: 1px;width: 40px;">
                         {{ Auth::user()->name }} <i class="fas fa-caret-down mr-2"></i>
                     </div>
@@ -67,16 +67,17 @@
                 <div class="card-body box-profile">
                     <div class="text-center">
                         <img class="profile-user-img img-fluid img-circle"
-                            src="{{ asset('admin-assets/dist/img/user4-128x128.jpg') }}" alt="User profile picture">
+                            src="{{ get_profile_pic() }}" alt="{{ Auth::user()->name }}">
                     </div>
                     <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
                     <p class="text-muted text-center">Software Engineer</p><br>
+                    
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
+                    <a href="{{route('profile.index')}}" class="dropdown-item">
                         <i class="fas fa-user mr-2"></i> Profile
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
+                    <a href="{{ url('/password/reset') }}" class="dropdown-item">
                         <i class="fas fa-lock mr-2"></i> Change Password
                     </a>
                     <div class="dropdown-divider"></div>
@@ -84,9 +85,14 @@
                         <i class="fas fa-cog mr-2"></i> Settings
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-power-off mr-2"></i> Logout
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item">
+                        <i class="fas fa-power-off mr-2" aria-hidden="true"></i>
+                        {{ __('Logout') }}
+
                     </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </div>
             </div>
         </li>

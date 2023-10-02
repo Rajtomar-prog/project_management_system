@@ -12,6 +12,7 @@
                         <i class="nav-icon fas fa-tachometer-alt"></i> <p>Dashboard</p>
                     </a>
                 </li>
+                @can('department-list')
                 <li class="nav-item {{ Request::segment(2) == 'departments' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'departments' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-building"></i>
@@ -30,7 +31,9 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
                
+                @can('project-list')
                 <li class="nav-item {{ Request::segment(2) == 'projects' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'projects' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-folder-open"></i>
@@ -49,6 +52,8 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
+                @can('task-list')
                 <li class="nav-item {{ Request::segment(2) == 'tasks' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'tasks' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tasks"></i>
@@ -67,9 +72,12 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
+
+                @can('status-list')
                 <li class="nav-item {{ Request::segment(2) == 'status' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'status' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-folder-open"></i>
+                        <i class="nav-icon fas fa-list-alt"></i>
                         <p>Task Status <i class="right fas fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
@@ -85,24 +93,8 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-cogs"></i>
-                        <p>Settings <i class="right fas fa-angle-left"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i> <p>All Tasks</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i> <p>Add New Task</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                @endcan
+                @can('user-list')
                 <li class="nav-item {{ Request::segment(2) == 'users' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'users' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
@@ -128,6 +120,9 @@
                         @endforeach
                     </ul>
                 </li>
+                @endcan
+                
+                @can('role-list')
                 <li class="nav-item {{ Request::segment(2) == 'roles' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'roles' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user"></i>
@@ -146,7 +141,47 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item {{ Request::segment(2) == 'products' ? 'menu-open' : '' }}">
+                @endcan
+                @can('permission-list')
+                <li class="nav-item {{ Request::segment(2) == 'permissions' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ Request::segment(2) == 'roles' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-unlock"></i>
+                        <p>Permissions <i class="fas fa-angle-left right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('permissions.index')}}" class="nav-link {{ Route::current()->getName() == 'permissions.index' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i> <p>All Permissions</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('permissions.create')}}" class="nav-link {{ Route::current()->getName() == 'permissions.create' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i> <p>Add New Permission</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @endcan
+                
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-cogs"></i>
+                        <p>Settings <i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i> <p>All Tasks</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i> <p>Add New Task</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {{-- <li class="nav-item {{ Request::segment(2) == 'products' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'products' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-edit"></i>
                         <p>Products <i class="fas fa-angle-left right"></i></p>
@@ -163,7 +198,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="nav-header">EXTRAS</li>
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link">

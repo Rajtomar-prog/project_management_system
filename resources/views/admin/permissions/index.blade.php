@@ -1,17 +1,17 @@
 @extends('admin.home')
-@section('page_title','Departments Management')
+@section('page_title','Permission Management')
 
-@section('main_headeing','Departments')
-@section('sub_headeing','Department List')
+@section('main_headeing','Permission')
+@section('sub_headeing','Permission List')
 
 @section('content_section')
 
 <div class="card-header">
     <h3 class="card-title">@yield('sub_headeing')</h3>
     <div class="float-right">
-        @can('department-create')
-        <a class="btn btn-outline-primary btn-block btn-sm" href="{{ route('departments.create') }}">
-            <i class="fa fa-plus"></i> New Department
+        @can('permission-create')
+        <a class="btn btn-outline-primary btn-block btn-sm" href="{{ route('permissions.create') }}">
+            <i class="fa fa-plus"></i> New Permission
         </a>
         @endcan
     </div>
@@ -31,31 +31,27 @@
                     <tr>
                         <th>No</th>
                         <th>Name</th>
-                        <th>Color</th>
-                        <th>Status</th>
+                        <th>Gaurd Name</th>
                         <th width="200px">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($departments as $key => $department)
+                    @foreach ($permissions as $key => $permission)
                     <tr>
                         <td>{{ ++$i }}</td>
-                        <td>{{ $department->name }}</td>
-                        <td><span class="badge badge-success" style="background: {{ $department->color }}"> &nbsp; &nbsp; </span></td>
-                        <td>{{ displayStatus($department->is_active) }}</td>
+                        <td>{{ $permission->name }}</td>
+                        <td>{{ $permission->guard_name }}</td>
                         <td>
-                            @can('department-list')
-                            <a href="{{ route('departments.show',$department->id) }}" title="View" class="btn btn-outline-info btn-sm">
+                            {{-- <a href="{{ route('permissions.show',$permission->id) }}" title="View" class="btn btn-outline-info btn-sm">
                                 <i class="fas fa-eye"></i>
-                            </a>
-                            @endcan
-                            @can('department-edit')
-                            <a href="{{ route('departments.edit',$department->id) }}" title="Edit" class="btn btn-outline-primary btn-sm">
+                            </a> --}}
+                            @can('permission-edit')
+                            <a href="{{ route('permissions.edit',$permission->id) }}" title="Edit" class="btn btn-outline-primary btn-sm">
                                 <i class="fas fa-edit"></i>
                             </a>
                             @endcan
-                            @can('department-delete')
-                            {!! Form::open(['method' => 'DELETE','route' => ['departments.destroy', $department->id],'style'=>'display:inline']) !!}
+                            @can('permission-delete')
+                            {!! Form::open(['method' => 'DELETE','route' => ['permissions.destroy', $permission->id],'style'=>'display:inline']) !!}
                             {!! Form::button('<i class="fa fa-trash" aria-hidden="true"></i>', ['class' => 'btn btn-outline-danger btn-sm','type' => 'submit']) !!}
                             {!! Form::close() !!}
                             @endcan
@@ -64,7 +60,7 @@
                     @endforeach
                 </tbody>
             </table>
-            {!! $departments->links() !!}
+            {!! $permissions->links() !!}
         </div>
     </div>
 </div>

@@ -30,19 +30,19 @@
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                    <strong>Project Name:</strong>
+                    <strong>Project Name<span class="text-danger">*</span></strong>
                     {!! Form::text('project_name', null, ['placeholder' => 'Project Name', 'class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                    <strong>Client:</strong>
+                    <strong>Client<span class="text-danger">*</span></strong>
                     {!! Form::select('client_id', [null => 'Select Client'] + $clients, [], ['class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                    <strong>Department:</strong>
+                    <strong>Department<span class="text-danger">*</span></strong>
                     {!! Form::select(
                         'departments[]',
                         $departments,
@@ -53,19 +53,19 @@
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                    <strong>Assign User:</strong>
+                    <strong>Assign User<span class="text-danger">*</span></strong>
                     {!! Form::select('users[]', [], [], ['class' => 'select2 form-control', 'id' => 'users', 'multiple']) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                    <strong>Budget:</strong>
+                    <strong>Budget<span class="text-danger">*</span></strong>
                     {!! Form::text('budget', null, ['placeholder' => 'Enter budget', 'class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                    <strong>Budget Type:</strong>
+                    <strong>Budget Type<span class="text-danger">*</span></strong>
                     {!! Form::select(
                         'budget_type',
                         ['' => 'Choose Budget Type', 'Hourly' => 'Hourly', 'Fixed Cost' => 'Fixed Cost'],
@@ -76,7 +76,7 @@
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                    <strong>Currency:</strong>
+                    <strong>Currency<span class="text-danger">*</span></strong>
                     {!! Form::select(
                         'curency',
                         ['' => 'Choose Currency', '1' => 'USD', '2' => 'INR', '3' => 'EUR', '4' => 'AUD'],
@@ -87,7 +87,7 @@
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                    <strong>Status:</strong>
+                    <strong>Status<span class="text-danger">*</span></strong>
                     {!! Form::select(
                         'status',
                         ['' => 'Choose Status', '1' => 'To Do', '2' => 'On Hold', '3' => 'In Process', '4' => 'Done'],
@@ -98,7 +98,7 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Description:</strong>
+                    <strong>Description<span class="text-danger">*</span></strong>
                     {!! Form::textarea('description', null, [
                         'placeholder' => 'Enter budget',
                         'class' => 'form-control',
