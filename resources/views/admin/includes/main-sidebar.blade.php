@@ -144,7 +144,7 @@
                 @endcan
                 @can('permission-list')
                 <li class="nav-item {{ Request::segment(2) == 'permissions' ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ Request::segment(2) == 'roles' ? 'active' : '' }}">
+                    <a href="#" class="nav-link {{ Request::segment(2) == 'permissions' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-unlock"></i>
                         <p>Permissions <i class="fas fa-angle-left right"></i></p>
                     </a>
@@ -163,42 +163,29 @@
                 </li>
                 @endcan
                 
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item {{ Request::segment(2) == 'settings' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ Request::segment(2) == 'settings' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>Settings <i class="right fas fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i> <p>All Tasks</p>
+                            <a href="{{ route('settings.index') }}" class="nav-link {{ Route::current()->getName() == 'settings.index' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i> <p>Settings</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i> <p>Add New Task</p>
+                                <i class="far fa-circle nav-icon"></i> <p>Tags</p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                {{-- <li class="nav-item {{ Request::segment(2) == 'products' ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ Request::segment(2) == 'products' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-edit"></i>
-                        <p>Products <i class="fas fa-angle-left right"></i></p>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="nav-icon fas fa-history"></i> <p>Activity Logs</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{route('products.index')}}" class="nav-link {{ Route::current()->getName() == 'products.index' ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i> <p>All Products</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('products.create')}}" class="nav-link {{ Route::current()->getName() == 'products.create' ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i> <p>Add New Product</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li> --}}
+                </li>
                 <li class="nav-header">EXTRAS</li>
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link">

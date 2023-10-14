@@ -40,9 +40,11 @@
                         <td>{{ ++$i }}</td>
                         <td>{{ $role->name }}</td>
                         <td>
+                            @can('role-list')
                             <a href="{{ route('roles.show',$role->id) }}" title="View" class="btn btn-outline-info btn-sm">
                                 <i class="fas fa-eye"></i>
                             </a>
+                            @endcan
                             @can('role-edit')
                             <a href="{{ route('roles.edit',$role->id) }}" title="Edit" class="btn btn-outline-primary btn-sm">
                                 <i class="fas fa-edit"></i>

@@ -48,4 +48,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('admin/users/user-profile-by-role/{id}', [App\Http\Controllers\UserController::class, 'userProfileByRole'])->name('userProfileByRole');
 
     Route::resource('admin/permissions', App\Http\Controllers\PermissionController::class);
+
+    Route::resource('admin/settings', App\Http\Controllers\SettingController::class);
 });
