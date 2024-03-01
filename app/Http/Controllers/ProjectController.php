@@ -27,7 +27,7 @@ class ProjectController extends Controller
         }else{
             $projects = Auth::user()->projects()->paginate(10);
         }
-
+        
         return view('admin.projects.index', compact('projects'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
     }
