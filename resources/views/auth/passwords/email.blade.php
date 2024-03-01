@@ -3,7 +3,7 @@
 
 @section('content_auth')
 
-    <p class="login-box-msg">{{ __('Forgot Password') }}</p>
+    <p class="login-box-msg">{{ __('Forgot Password') }} </p>
     <form method="POST" action="{{ route('password.email') }}">
         @csrf
         <div class="input-group mb-3">

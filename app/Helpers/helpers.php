@@ -2,6 +2,7 @@
 
 use App\Models\Project;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 if (! function_exists('changeDateFormat')) {
     function changeDateFormat($format,$date){
@@ -109,6 +110,16 @@ if(!function_exists('get_profile_pic')){
             $profile_pic = asset('admin-assets/dist/img/avatar5.png');
         }
         return $profile_pic;
+    }
+}
+
+if(!function_exists('isAdmin')){
+    function isAdmin(){
+        if(auth()->user()->hasRole('Admin')){
+            return true;    
+        }else{
+            return false;
+        }
     }
 }
 

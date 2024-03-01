@@ -20,6 +20,12 @@
         <div class="row">
             <div class="col-lg-12 col-12">
 
+                @if ( auth()->user()->hasRole('Admin') )
+                    Admin
+                @else
+                    User
+                @endif
+
                 @if ($message = Session::get('success'))
                     <div class="alert alert-success">
                         <p>{{ $message }}</p>

@@ -70,8 +70,15 @@
                             src="{{ get_profile_pic() }}" alt="{{ Auth::user()->name }}">
                     </div>
                     <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
-                    <p class="text-muted text-center">Software Engineer</p><br>
                     
+                    @php $roles = Auth::user()->roles->pluck('name'); @endphp
+
+                    <div class="text-center mb-2">   
+                        @foreach(Auth::user()->roles->pluck('name') as $role)
+                            <label class="badge badge-success">{{ $role }}</label>
+                        @endforeach
+                    </div>
+                
                     <div class="dropdown-divider"></div>
                     <a href="{{route('profile.index')}}" class="dropdown-item">
                         <i class="fas fa-user mr-2"></i> Profile

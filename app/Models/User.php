@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class User extends Authenticatable
@@ -52,6 +53,11 @@ class User extends Authenticatable
     public function departments(): MorphToMany
     {
         return $this->morphToMany(Department::class, 'departmentable');
+    }
+
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class, 'user_project');
     }
 
 }

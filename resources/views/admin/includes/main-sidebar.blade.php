@@ -12,6 +12,7 @@
                         <i class="nav-icon fas fa-tachometer-alt"></i> <p>Dashboard</p>
                     </a>
                 </li>
+
                 @can('department-list')
                 <li class="nav-item {{ Request::segment(2) == 'departments' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'departments' ? 'active' : '' }}">
@@ -53,6 +54,7 @@
                     </ul>
                 </li>
                 @endcan
+
                 @can('task-list')
                 <li class="nav-item {{ Request::segment(2) == 'tasks' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'tasks' ? 'active' : '' }}">
@@ -94,6 +96,7 @@
                     </ul>
                 </li>
                 @endcan
+
                 @can('user-list')
                 <li class="nav-item {{ Request::segment(2) == 'users' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'users' ? 'active' : '' }}">
@@ -142,6 +145,7 @@
                     </ul>
                 </li>
                 @endcan
+                
                 @can('permission-list')
                 <li class="nav-item {{ Request::segment(2) == 'permissions' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'permissions' ? 'active' : '' }}">
@@ -163,6 +167,7 @@
                 </li>
                 @endcan
                 
+                @can('setting-list')
                 <li class="nav-item {{ Request::segment(2) == 'settings' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'settings' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-cogs"></i>
@@ -181,6 +186,8 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
+
                 <li class="nav-item">
                     <a href="" class="nav-link">
                         <i class="nav-icon fas fa-history"></i> <p>Activity Logs</p>

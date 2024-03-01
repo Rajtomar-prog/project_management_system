@@ -8,6 +8,7 @@ use App\Models\Department;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -21,7 +22,12 @@ class ProjectController extends Controller
 
     public function index()
     {
-        $projects = Project::latest()->paginate(10);
+        if(isAdmin()){
+            $projects = Project::latest()->paginate(10);
+        }else{
+            $projects = Auth::user()->projects()->paginate(10);
+        }
+
         return view('admin.projects.index', compact('projects'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
     }
