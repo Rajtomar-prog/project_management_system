@@ -1,10 +1,12 @@
-@extends('layouts.app')
+@extends('auth.auth-app')
+@section('page_title', ' Register')
 
-@section('content')
+@section('content_auth')
+
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
+        <div class="col-md-12">
+            <div class="">
                 <div class="card-header">{{ __('Verify Your Email Address') }}</div>
 
                 <div class="card-body">
@@ -16,9 +18,10 @@
 
                     {{ __('Before proceeding, please check your email for a verification link.') }}
                     {{ __('If you did not receive the email') }},
+                    <br><br>
                     <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                         @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
+                        <button type="submit" class="btn btn-outline-primary btn-block btn-sm text-capitalize">{{ __('click here to request another') }}</button>
                     </form>
                 </div>
             </div>

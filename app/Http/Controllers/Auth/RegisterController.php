@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\UserWelcome;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -71,6 +73,10 @@ class RegisterController extends Controller
         ]);
 
         $user->assignRole('Manager');
+
+        $url = url('/login');
+        Mail::to($user->email)->send(new UserWelcome($user,$url));
+        
         return $user;
     }
 }

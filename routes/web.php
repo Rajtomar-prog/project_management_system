@@ -11,11 +11,8 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SettingController;
-use App\Http\Controllers\MailController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -32,15 +29,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('send-mail', [MailController::class, 'index']);
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::get('admin/home', [HomeController::class, 'index'])->name('home');
-Route::get('admin', [HomeController::class, 'index'])->name('home');
-Route::get('admin/department_users', [ProjectController::class, 'department_users']);
+Route::group(['middleware' => ['auth','verified']], function() {
 
-Route::group(['middleware' => ['auth']], function() {
+    Route::get('admin/home', [HomeController::class, 'index'])->name('home');
+    Route::get('admin', [HomeController::class, 'index'])->name('home');
+    Route::get('admin/department_users', [ProjectController::class, 'department_users']);
     Route::resource('admin/roles', RoleController::class);
     Route::resource('admin/users', UserController::class);
     Route::resource('admin/products', ProductController::class);
