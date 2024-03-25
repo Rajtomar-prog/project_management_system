@@ -12,8 +12,8 @@
                         <i class="nav-icon fas fa-tachometer-alt"></i> <p>Dashboard</p>
                     </a>
                 </li>
-
-                @can('department-list')
+                
+                @canany(['department-list', 'department-create', 'department-edit', 'department-delete'])
                 <li class="nav-item {{ Request::segment(2) == 'departments' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'departments' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-building"></i>
@@ -32,7 +32,7 @@
                         </li>
                     </ul>
                 </li>
-                @endcan
+                @endcanany
                
                 @can('project-list')
                 <li class="nav-item {{ Request::segment(2) == 'projects' ? 'menu-open' : '' }}">

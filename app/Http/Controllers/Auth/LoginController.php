@@ -44,4 +44,21 @@ class LoginController extends Controller
     {
         return redirect('admin/home');
     }
+
+   
+    // protected function credentials(\Illuminate\Http\Request $request)
+    // {
+        //return $request->only($this->username(), 'password');
+        // return ['email' => $request->{$this->username()}, 'password' => $request->password, 'is_active' => 1];
+    // }
+
+    protected function validateLogin(Request $request)
+    {
+        $this->validate($request, [
+            $this->username() => 'exists:users,' . $this->username() . ',is_active,1',
+            'password' => 'required|string',
+        ], [
+            $this->username() . '.exists' => 'The selected email is invalid or the account has been disabled.'
+        ]);
+    }
 }

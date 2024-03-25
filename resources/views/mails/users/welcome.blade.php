@@ -1,5 +1,5 @@
 <x-mail::message>
-# Hey {{ $user->name }}
+# Hey {{ $user->name }},
 
 Thanks for signing up for our Jarvis CRM! You're joining an amazing community of beauty lovers. From now on you'll enjoy:
 

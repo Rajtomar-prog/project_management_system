@@ -74,8 +74,7 @@ class RegisterController extends Controller
 
         $user->assignRole('Manager');
 
-        $url = url('/login');
-        Mail::to($user->email)->send(new UserWelcome($user,$url));
+        Mail::to($user->email)->send(new UserWelcome($user,url('/login')));
         
         return $user;
     }
