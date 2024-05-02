@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Department;
+use App\Models\Project;
+use App\Models\Task;
+use App\Models\User;
+use App\Models\Role;
+use App\Models\Permission;
 
 class HomeController extends Controller
 {
@@ -23,6 +29,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+        $departments = Department::count();
+        $projects = Project::count();
+        $tasks = Task::count();
+        $users = User::count();
+        $roles = Role::count();
+        $permissions = Permission::count();
+        
+        return view('admin.dashboard', compact('departments','projects','tasks','users','roles','permissions'));
     }
 }

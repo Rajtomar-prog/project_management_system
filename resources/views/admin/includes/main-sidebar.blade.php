@@ -34,7 +34,7 @@
                 </li>
                 @endcanany
                
-                @can('project-list')
+                @canany(['project-list', 'project-create', 'project-edit', 'project-delete'])
                 <li class="nav-item {{ Request::segment(2) == 'projects' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'projects' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-folder-open"></i>
@@ -55,7 +55,7 @@
                 </li>
                 @endcan
 
-                @can('task-list')
+                @canany(['task-list', 'task-create', 'task-edit', 'task-delete'])
                 <li class="nav-item {{ Request::segment(2) == 'tasks' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'tasks' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tasks"></i>
@@ -76,7 +76,7 @@
                 </li>
                 @endcan
 
-                @can('status-list')
+                @canany(['status-list', 'status-create', 'status-edit', 'status-delete'])
                 <li class="nav-item {{ Request::segment(2) == 'status' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'status' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-list-alt"></i>
@@ -97,7 +97,7 @@
                 </li>
                 @endcan
 
-                @can('user-list')
+                @canany(['user-list', 'user-create', 'user-edit', 'user-delete'])
                 <li class="nav-item {{ Request::segment(2) == 'users' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'users' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
@@ -125,7 +125,7 @@
                 </li>
                 @endcan
                 
-                @can('role-list')
+                @canany(['role-list', 'role-create', 'role-edit', 'role-delete'])
                 <li class="nav-item {{ Request::segment(2) == 'roles' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'roles' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user"></i>
@@ -146,7 +146,7 @@
                 </li>
                 @endcan
                 
-                @can('permission-list')
+                @canany(['permission-list', 'permission-create', 'permission-edit', 'permission-delete'])
                 <li class="nav-item {{ Request::segment(2) == 'permissions' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'permissions' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-unlock"></i>
@@ -167,7 +167,7 @@
                 </li>
                 @endcan
                 
-                @can('setting-list')
+                @canany(['setting-list', 'setting-create', 'setting-edit', 'setting-delete'])
                 <li class="nav-item {{ Request::segment(2) == 'settings' ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::segment(2) == 'settings' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-cogs"></i>

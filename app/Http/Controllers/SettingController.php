@@ -8,6 +8,19 @@ use Illuminate\Support\Facades\File;
 
 class SettingController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    function __construct()
+    {
+        $this->middleware('permission:setting-list|setting-create|setting-edit|setting-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:setting-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:setting-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:setting-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $setting = Setting::find(1);
