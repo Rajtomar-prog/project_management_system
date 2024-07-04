@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            $table->dropColumn('status_id');
-        });
+        // Schema::table('tasks', function (Blueprint $table) {
+        //     $table->dropColumn('status_id');
+        // });
     }
 
     /**
